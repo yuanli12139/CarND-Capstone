@@ -53,6 +53,10 @@ class TLDetector(object):
         self.last_wp = -1
         self.state_count = 0
 
+        self.img_fr = 0
+        self.img_id = 0
+        self.labels = open('/home/trotk/Documents/udacity/CarND-Capstone/train_data/labels.csv', 'w')
+
         rospy.spin()
 
     def pose_cb(self, msg):
@@ -79,6 +83,19 @@ class TLDetector(object):
         self.has_image = True
         self.camera_image = msg
         light_wp, state = self.process_traffic_lights()
+
+        LOOKAHEAD_WPS = 200
+        car_wp_idx = self.get_closest_waypoint(self.pose.pose.position.x, self.pose.pose.position.y)
+        if light_wp - car_wp_idx <= LOOKAHEAD_WPS and self.img_id < 5000:
+            cv_image = self.bridge.imgmsg_to_cv2(self.camera_image, "bgr8")
+            
+            if self.img_fr % 10 == 0:
+                img_name = '{}.png'.format(format(self.img_id, '06d'))
+                cv2.imwrite('/home/trotk/Documents/udacity/CarND-Capstone/train_data/' + img_name, cv_image)
+                self.labels.write(img_name + ',' + str(int(state > 0)) + '\n')
+                self.img_id += 1
+                self.img_fr = 0
+            self.img_fr += 1
 
         '''
         Publish upcoming red lights at camera frequency.

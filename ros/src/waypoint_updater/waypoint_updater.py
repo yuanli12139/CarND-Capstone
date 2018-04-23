@@ -7,6 +7,10 @@ from styx_msgs.msg import Lane, Waypoint
 from scipy.spatial import KDTree
 from std_msgs.msg import Int32
 
+from sensor_msgs.msg import Image
+from cv_bridge import CvBridge
+import cv2
+
 import math
 
 '''
@@ -112,7 +116,7 @@ class WaypointUpdater(object):
     		dist = self.distance(waypoints, i, stop_idx)
     		vel = math.sqrt(2 * MAX_DECEL * dist)
     		if vel < 1.:
-    			vel = 0.
+    			vel = 0.1
 
     		p.twist.twist.linear.x = min(vel, wp.twist.twist.linear.x) # keep vel under speed limit
     		temp_waypoints.append(p)
@@ -134,6 +138,9 @@ class WaypointUpdater(object):
     def traffic_cb(self, msg):
         # TODO: Callback for /traffic_waypoint message. Implement
         self.stopline_wp_idx = msg.data
+
+    def image_cb(self, msg):
+    	self.camera_image = msg
 
     def obstacle_cb(self, msg):
         # TODO: Callback for /obstacle_waypoint message. We will implement it later
