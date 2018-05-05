@@ -16,7 +16,10 @@ This is the project repo for the final project of the Udacity Self-Driving Car N
 
 ### Traffic Light Detection
 
-We use YOLO v2 tiny detector as our traffic light detector (https://pjreddie.com/darknet/yolov2/) for its real-time efficiency. We download the cfg file and weights pretrained on COCO dataset as our baseline. For training, we combine the Udacity Autonomous Driving Dataset 2 (https://github.com/udacity/self-driving-car/tree/master/annotations) and the traffic light dataset collected by https://github.com/coldKnight/TrafficLight_Detection-TensorFlowAPI, and then use `/ros/src/tl_detector/sort_data.py` to convert the annotations into trainable .xml files.
+We use YOLO v2 tiny detector as our traffic light detector (https://pjreddie.com/darknet/yolov2/) for its real-time efficiency. We download the cfg file and weights pretrained on COCO dataset as our baseline. 
+
+#### Dataset
+We combine the Udacity Autonomous Driving Dataset 2 (https://github.com/udacity/self-driving-car/tree/master/annotations) and the traffic light dataset collected by https://github.com/coldKnight/TrafficLight_Detection-TensorFlowAPI, and then use `/ros/src/tl_detector/sort_data.py` to convert the annotations into trainable .xml files.
 
 #### Training
 
