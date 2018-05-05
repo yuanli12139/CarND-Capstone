@@ -29,7 +29,7 @@ Follow the instructions of darkflow (https://github.com/thtrieu/darkflow) and mo
 ./flow --model cfg/yolov2-tiny_ft.cfg --train --load bin/yolov2-tiny.weights --dataset "/mnt/data/datasets/CarND-Capstone/Data" --annotation "/mnt/data/datasets/CarND-Capstone/Annotations" --gpu 1.0 --lr 5e-4 --epoch 10 --save 1000 --trainer adam
 ```
 
-We also trained YOLO v2 full version but it underperforms the Tiny YOLO v2. This is potentially due to overfitting with limited training data.
+We also trained YOLO v2 full version but it underperforms the Tiny YOLO v2. This is potentially due to overfitting with the limited training data.
 
 Our checkpoint files can be found at
 
